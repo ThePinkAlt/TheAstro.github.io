@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roblox Place Details Fetcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f4f4f4;
+      color: #222;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+    pre {
+      background: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      max-height: 400px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Roblox Place Details Fetcher</h1>
+  <button id="fetchBtn">Fetch Place Details</button>
+  <pre id="output">Click the button to load data...</pre>
+
+  <script>
+    const fetchBtn = document.getElementById('fetchBtn');
+    const output = document.getElementById('output');
+
+    fetchBtn.addEventListener('click', async () => {
+      output.textContent = 'Loading...';
+
+      // Replace this with your actual proxy URL
+      const proxyUrl = 'https://games.thingymopper.itch.io/v1/games/multiget-place-details?placeIds=81500510';
+
+      try {
+        const response = await fetch(proxyUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        output.textContent = 'Error: ' + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
